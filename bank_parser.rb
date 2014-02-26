@@ -63,13 +63,44 @@ class BankParser
     login_page = @agent.get('https://www.sbsibank.by/login.asp')
     result = do_login(login_page)
     if result.form_with(name: 'F1')
-      result2 = do_login(result)
+      result = do_login(result)
     end
     puts result.body
-    puts result2.body
+    raise 'We were unable to login even with captcha' if result.form_with(name: 'F1')
+    true
   end
 
+  def get_stat
+    right = @agent.get(
+        'https://www.sbsibank.by/right.asp',
+        [],
+        'https://www.sbsibank.by/home.asp'
+    )
+    mcards = right.form_with(name: 'mcards')
+    raise 'No cards found' if mcards.radiobutton_with(name: 'R1').nil?
+    crd_id = mcards.radiobutton_with(name: 'R1').value
+    mbottom = @agent.get(
+        "https://www.sbsibank.by/mbottom.asp?crd_id=#{crd_id}",
+        [],
+        'https://www.sbsibank.by/right.asp'
+    )
+
+    left = @agent.get(
+        'https://www.sbsibank.by/left.asp',
+        [],
+        "https://www.sbsibank.by/mbottom.asp?crd_id=#{crd_id}"
+    )
+
+    p1 = @agent.get(
+        'https://www.sbsibank.by/statement.asp?O=A',
+        [],
+        'https://www.sbsibank.by/left.asp'
+    )
+    page = @agent.get('https://www.sbsibank.by/statement_xml.asp?F=XML&O=A', [], 'https://www.sbsibank.by/statement.asp?O=A')
+    puts page.body
+  end
   def work
     login
+    get_stat
   end
 end
