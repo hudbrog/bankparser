@@ -3,6 +3,8 @@ class BankParser
     config = YAML::load_file(File.join(__dir__, 'config.yaml'))
     configatron.configure_from_hash config
     @agent = Mechanize.new
+    @agent.log = Logger.new 'mech.log'
+    @agent.user_agent_alias = 'Mac Mozilla'
   end
 
   def verify_form (form)
@@ -42,7 +44,8 @@ class BankParser
       m2 = login_page.body.match(/F1.T2.value\s*=\s*"(\d+)"/)
       login_form.T2 = m2[1] if m2
     end
-    @agent.submit(login_form)
+    button = login_form.button_with(name: 'B1')
+    @agent.submit(login_form, button)
   end
 
   def login
