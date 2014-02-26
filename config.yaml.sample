@@ -1,0 +1,5 @@
+name: bank_login
+password: bank_password
+bank: 'ОАО "Банк Москва-Минск"'
+captcha_login: deathbycaptcha_login
+captcha_password: deathbycaptcha_password

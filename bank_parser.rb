@@ -26,7 +26,7 @@ class BankParser
     client = DeathByCaptcha.socket_client(configatron.captcha_login, configatron.captcha_password)
     response = client.decode (captcha_url)
     raise 'Captcha was not solved' if response['text'].nil?
-    login_form.captcha = response['result']
+    login_form.captcha = response['text']
   end
 
   def do_login (login_page)
@@ -39,6 +39,8 @@ class BankParser
       hash = m[1]
       captcha_url = "https://www.sbsibank.by/imobile/captcha.ashx?r=0.54457567&s=#{hash}"
       fill_captcha(login_form, captcha_url)
+      m2 = login_page.body.match(/F1.T2.value\s*=\s*"(\d+)"/)
+      login_form.T2 = m2[1] if m2
     end
     @agent.submit(login_form)
   end
