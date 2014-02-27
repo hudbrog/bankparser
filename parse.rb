@@ -1,8 +1,8 @@
 require './config/environment'
 
-#parser = BankParser.new
-#parser.work
+parser = BankParser.new
+parser.work
 #
-f=File.read('/tmp/statement.xml')
-statement = Statement.new(f)
-statement.parse
+#f=File.read('/tmp/statement.xml')
+#statement = Statement.new(f)
+#statement.parse

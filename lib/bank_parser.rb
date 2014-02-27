@@ -95,8 +95,9 @@ class BankParser
     page = @agent.get('https://www.sbsibank.by/statement_xml.asp?F=XML&O=A', [], 'https://www.sbsibank.by/statement.asp?O=A')
     page.body
   end
+
   def work
     login
-    puts get_stat
+    Statement.new(get_stat).parse
   end
 end
