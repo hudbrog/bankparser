@@ -5,6 +5,8 @@ class BankParser
     @agent = Mechanize.new
     @agent.log = Logger.new 'mech.log'
     @agent.user_agent_alias = 'Mac Mozilla'
+
+    @dbc_client = DeathByCaptcha.socket_client(configatron.captcha_login, configatron.captcha_password)
   end
 
   def verify_form (form)
@@ -28,10 +30,14 @@ class BankParser
     path = @agent.get(captcha_url, [], 'https://www.sbsibank.by/login.asp?mode=1').save '/tmp/captcha.png'
     raise 'We were unable to save captcha to file' if path.nil?
     file = File.open(path, 'r')
-    client = DeathByCaptcha.socket_client(configatron.captcha_login, configatron.captcha_password)
-    response = client.decode file
+    response = @dbc_client.decode file
     raise 'Captcha was not solved' if response['text'].nil?
+    @cid = response['captcha']
     login_form.captcha = response['text']
+  end
+
+  def report_bad_captcha
+    @dbc_client.report(@cid)
   end
 
   def do_login (login_page)
@@ -65,8 +71,11 @@ class BankParser
     if result.form_with(name: 'F1')
       result = do_login(result)
     end
-    puts result.body
-    raise 'We were unable to login even with captcha' if result.form_with(name: 'F1')
+    #puts result.body
+    if result.form_with(name: 'F1')
+      report_bad_captcha
+      raise 'We were unable to login even with captcha'
+    end
     true
   end
 
@@ -85,22 +94,12 @@ class BankParser
         'https://www.sbsibank.by/right.asp'
     )
 
-    left = @agent.get(
-        'https://www.sbsibank.by/left.asp',
-        [],
-        "https://www.sbsibank.by/mbottom.asp?crd_id=#{crd_id}"
-    )
-
-    p1 = @agent.get(
-        'https://www.sbsibank.by/statement.asp?O=A',
-        [],
-        'https://www.sbsibank.by/left.asp'
-    )
+    
     page = @agent.get('https://www.sbsibank.by/statement_xml.asp?F=XML&O=A', [], 'https://www.sbsibank.by/statement.asp?O=A')
-    puts page.body
+    page.body
   end
   def work
     login
-    get_stat
+    puts get_stat
   end
 end
