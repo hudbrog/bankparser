@@ -1,9 +1,8 @@
-require 'rubygems'
-require 'yaml'
-require 'mechanize'
-require 'configatron'
-require 'deathbycaptcha'
-require './bank_parser'
+require './config/environment'
 
-parser = BankParser.new
-parser.work
+#parser = BankParser.new
+#parser.work
+#
+f=File.read('/tmp/statement.xml')
+statement = Statement.new(f)
+statement.parse

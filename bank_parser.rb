@@ -1,7 +1,5 @@
 class BankParser
   def initialize
-    config = YAML::load_file(File.join(__dir__, 'config.yaml'))
-    configatron.configure_from_hash config
     @agent = Mechanize.new
     @agent.log = Logger.new 'mech.log'
     @agent.user_agent_alias = 'Mac Mozilla'
@@ -94,7 +92,6 @@ class BankParser
         'https://www.sbsibank.by/right.asp'
     )
 
-    
     page = @agent.get('https://www.sbsibank.by/statement_xml.asp?F=XML&O=A', [], 'https://www.sbsibank.by/statement.asp?O=A')
     page.body
   end

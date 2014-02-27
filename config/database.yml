@@ -1,0 +1,7 @@
+development:
+  user: root
+  password: admin
+  host: localhost
+  logger: false
+  adapter: mysql
+  database: bankparser
