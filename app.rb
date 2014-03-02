@@ -1,9 +1,19 @@
 require './config/environment'
 require 'sinatra/base'
 
+
 class BankRoller < Sinatra::Base
+  configure do
+    set :public_folder, File.dirname(__FILE__) + '/app'
+  end
+
+  before do
+    cache_control :public, :max_age => 0
+    content_type 'application/json'
+  end
+
   get '/' do
-    erb :index
+    send_file(File.dirname(__FILE__) + '/app/index.html', {type: 'text/html'})
   end
 
   get '/transactions' do

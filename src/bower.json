@@ -1,0 +1,25 @@
+{
+  "name": "bankroller",
+  "version": "0.0.0",
+  "homepage": "https://github.com/hudbrog/bankparser",
+  "authors": [
+    "Alexey Ustyantsev <hudbrog@gmail.com>"
+  ],
+  "description": "A simple expense analyzer",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.14",
+    "angular-bootstrap": "~0.10.0",
+    "bootstrap": "~3.1.1"
+  }
+}

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" ng-app="bankRoller">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Document</title>
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+
+</head>
+<body>
+<div ng-controller="AboutCtrl">
+    {{dropdownDemoItems}}
+</div>
+
+</body>
+</html>

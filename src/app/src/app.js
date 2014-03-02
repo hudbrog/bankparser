@@ -1,0 +1,1 @@
+var bankRoller = angular.module('bankRoller', []);

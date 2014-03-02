@@ -2,3 +2,4 @@ config.yaml
 .idea/
 mech.log
 .bundle/
+app/
