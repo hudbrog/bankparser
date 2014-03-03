@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-9">
-        <table class="table table-striped table-condensed">
+        <table class="table table-striped table-condensed" ng-table="tableParams">
             <tbody>
-            <tr ng-repeat="transaction in transactions">
-                <td>{{transaction.date}}</td>
-                <td>{{transaction.desc}}</td>
-                <td>{{transaction.acc_amount}}</td>
+            <tr ng-repeat="transaction in $data">
+                <td data-title="'Date'">{{transaction.date}}</td>
+                <td data-title="'Description'">{{transaction.desc}}</td>
+                <td data-title="'Amount'">{{transaction.acc_amount}}</td>
             </tr>
             </tbody>
         </table>

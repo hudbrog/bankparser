@@ -1,4 +1,9 @@
-var bankRoller = angular.module('bankRoller', ['ngResource', 'ngRoute', 'templates-app']);
+var bankRoller = angular.module('bankRoller', [
+    'ngResource',
+    'ngRoute',
+    'templates-app',
+    'ngTable'
+]);
 
 bankRoller.config(function($routeProvider){
     $routeProvider.when("/", {

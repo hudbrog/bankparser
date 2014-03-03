@@ -53,6 +53,7 @@ module.exports = {
             'vendor/angular/angular.js',
             'vendor/angular-route/angular-route.js',
             'vendor/angular-resource/angular-resource.js',
+            'vendor/ng-table/ng-table.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
         ],
         css: [
