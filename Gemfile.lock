@@ -65,6 +65,7 @@ GEM
       unf_ext
     unf_ext (0.0.6)
     webrobots (0.1.1)
+    will_paginate (3.0.5)
 
 PLATFORMS
   ruby
@@ -76,3 +77,4 @@ DEPENDENCIES
   mechanize
   mysql
   sinatra
+  will_paginate

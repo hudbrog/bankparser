@@ -17,7 +17,7 @@ class BankRoller < Sinatra::Base
   end
 
   get '/transactions' do
-    @transactions = Transaction.all
+    @transactions = Transaction.all.order(:date=>:desc).paginate(page: params[:page], per_page: params[:per_page])
     @transactions.to_json
   end
 

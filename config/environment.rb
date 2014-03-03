@@ -6,6 +6,7 @@ require 'configatron'
 require 'deathbycaptcha'
 require 'mysql'
 require 'date'
+require 'will_paginate/active_record'
 
 environment = ENV['DATABASE_ENV'] || 'development'
 
