@@ -1,8 +1,10 @@
-bankRoller.controller('AboutCtrl', function( $scope ) {
+bankRoller.factory('BankRollerAPI', function($resource){
+   return {
+       transactions: $resource('/transactions')
+   }
+});
+
+bankRoller.controller('TransactionsCtrl', function( $scope, BankRollerAPI ) {
         // This is simple a demo for UI Boostrap.
-        $scope.dropdownDemoItems = [
-            "The first choice!",
-            "And another choice for you.",
-            "but wait! A third!"
-        ];
+        $scope.transactions = BankRollerAPI.transactions.query();
     });

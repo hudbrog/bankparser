@@ -32,7 +32,13 @@ module.exports = function (grunt) {
             html: {
                 files: [ '<%= app_files.html %>' ],
                 tasks: [ 'index:build' ]
-            }
+            },
+            tpls: {
+                files: [
+                    '<%= app_files.atpl %>'
+                ],
+                tasks: [ 'html2js' ]
+            },
         },
         less: {
             server: {
