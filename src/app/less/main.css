@@ -5778,3 +5778,8 @@ body {
 h2 {
   color: red;
 }
+.chart {
+  float: left;
+  width: 100%;
+  height: 600px;
+}

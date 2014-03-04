@@ -50,11 +50,14 @@ module.exports = {
      */
     vendor_files: {
         js: [
+            'vendor/jquery/jquery.js',
             'vendor/angular/angular.js',
             'vendor/angular-route/angular-route.js',
             'vendor/angular-resource/angular-resource.js',
             'vendor/ng-table/ng-table.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
+            'vendor/d3/d3.js',
+            'vendor/angular-charts/dist/angular-charts.js'
         ],
         css: [
             'vendor/ng-table/ng-table.css'
