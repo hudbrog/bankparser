@@ -51,8 +51,13 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
+    representable (1.7.6)
+      multi_json
+      nokogiri
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    roar (0.12.3)
+      representable (>= 1.6.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -76,5 +81,6 @@ DEPENDENCIES
   deathbycaptcha
   mechanize
   mysql
+  roar
   sinatra
   will_paginate

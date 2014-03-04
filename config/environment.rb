@@ -7,6 +7,7 @@ require 'deathbycaptcha'
 require 'mysql'
 require 'date'
 require 'will_paginate/active_record'
+require 'roar/representer/json/hal'
 
 environment = ENV['DATABASE_ENV'] || 'development'
 

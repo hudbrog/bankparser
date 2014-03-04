@@ -18,12 +18,13 @@ class BankRoller < Sinatra::Base
 
   get '/transactions' do
     @transactions = Transaction.all.order(:date=>:desc).paginate(page: params[:page], per_page: params[:per_page])
+    @transactions.extend(TransactionsRepresenter)
     @transactions.to_json
   end
 
   get '/transactions/:id' do
     @transaction = Transaction.find(params[:id])
-    @transaction.to_json
+    @transaction.extend(TransactionRepresenter).to_json
   end
 
   post '/transactions/new' do
