@@ -23,7 +23,7 @@ module.exports = {
         js: [ '**/*.js', '!**/*.spec.js', '!assets/**/*.js' ],
         jsunit: [ 'app/**/*.spec.js' ],
 
-        atpl: [ 'app/**/*.tpl.html' ],
+        atpl: [ 'app/src/**/*.tpl.html' ],
 
         html: [ 'app/index.html' ],
         less: 'app/less/main.less',
@@ -57,6 +57,7 @@ module.exports = {
             'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
         ],
         css: [
+            'vendor/ng-table/ng-table.css'
         ],
         assets: [
         ]

@@ -168,7 +168,6 @@ module.exports = function (grunt) {
                     '<%= build_dir %>/src/*.js',
                     '<%= build_dir %>/src/**/*.js',
                     '<%= html2js.app.dest %>',
-                    '<%= vendor_files.css %>',
                     '<%= concat.build_css.dest %>'
                 ]
             }

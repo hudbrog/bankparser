@@ -1,3 +1,5 @@
+require './lib/pagination_representer'
+
 module TransactionRepresenter
   include Roar::Representer::JSON::HAL
   include Roar::Representer::Feature::Hypermedia
@@ -9,7 +11,7 @@ module TransactionRepresenter
 
 
   link :self do
-    "http://songs/"
+    "/transactions/#{id}"
   end
 end
 
@@ -21,6 +23,24 @@ module TransactionsRepresenter
   collection :items, :extend => TransactionRepresenter
 
   def page_url(*args)
-    'http://blah'
+    '/transactions'
+  end
+end
+
+module GroupedTransaction
+  include Roar::Representer::JSON::HAL
+
+  property :date
+  property :sum
+end
+
+module GroupedTransactionsRepresenter
+  include Roar::Representer::JSON::HAL
+  include Roar::Representer::Feature::Hypermedia
+
+  collection :items, :extend => GroupedTransaction
+
+  def items
+    self
   end
 end

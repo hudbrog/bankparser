@@ -17,9 +17,21 @@ class BankRoller < Sinatra::Base
   end
 
   get '/transactions' do
-    @transactions = Transaction.all.order(:date=>:desc).paginate(page: params[:page], per_page: params[:per_page])
+    params[:sort] = "{'date': 'asc'}" if params[:sort].nil?
+    @transactions = Transaction
+      .all
+      .order(Hash[JSON.parse(params[:sort]).map {|k,v| [k, v.to_sym]}])
+      .paginate(page: params[:page], per_page: params[:per_page])
     @transactions.extend(TransactionsRepresenter)
     @transactions.to_json
+  end
+
+  get '/grouped_transactions' do
+    @transactions = Transaction
+      .select('date, sum(acc_amount) as sum')
+    .where("date > '#{Date.parse((Time.now-30.days).to_s)}' and acc_amount < 0")
+    .group('date').to_a
+    @transactions.extend(GroupedTransactionsRepresenter).to_json
   end
 
   get '/transactions/:id' do
