@@ -4,10 +4,12 @@ module TransactionRepresenter
   include Roar::Representer::JSON::HAL
   include Roar::Representer::Feature::Hypermedia
 
+  property :id
   property :desc
   property :date
   property :auth
   property :acc_amount
+  property :hidden
 
 
   link :self do

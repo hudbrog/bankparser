@@ -3,7 +3,8 @@ var bankRoller = angular.module('bankRoller', [
     'ngRoute',
     'templates-app',
     'ngTable',
-    'angularCharts'
+    'angularCharts',
+    'ui.bootstrap'
 ]);
 
 bankRoller.config(function($routeProvider){

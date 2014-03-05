@@ -5,7 +5,8 @@ bankRoller.factory('BankRollerAPI', function($resource){
    }
 });
 
-bankRoller.controller('TransactionsCtrl', function( $scope, BankRollerAPI, ngTableParams, $location ) {
+bankRoller.controller('TransactionsCtrl', function( $scope, BankRollerAPI, ngTableParams, $location, $resource, alertService) {
+    $scope.alerts = [];
         // This is simple a demo for UI Boostrap.
 //        $scope.transactions = BankRollerAPI.transactions.query();
     $scope.tableParams = new ngTableParams(
@@ -42,5 +43,35 @@ bankRoller.controller('TransactionsCtrl', function( $scope, BankRollerAPI, ngTab
         for(i=0; i< data.items.length; i++){
             $scope.chartData['data'].push({x: data.items[i].date, y: [-1*data.items[i].sum], tooltip: data.items[i].sum});
         }
-    })
+    });
+
+    $scope.edit = function(key){
+        if (typeof($scope.copy) !== 'undefined'){
+            $scope.cancel_edit($scope.edit_key);
+        }
+        $scope.copy = angular.copy($scope.tableParams.data[key]);
+        $scope.edit_key = key;
+        $scope.tableParams.data[key].$edit = true;
+    }
+
+    $scope.cancel_edit = function(key){
+        $scope.tableParams.data[key] = angular.copy($scope.copy);
+        $scope.copy = undefined;
+        $scope.edit_key = undefined;
+    }
+
+    $scope.save = function(key){
+        $resource($scope.tableParams.data[key]._links.self.href).save(
+            $scope.tableParams.data[key],
+            function(){ //success function
+                $scope.copy = undefined;
+                $scope.edit_key = undefined;
+                $scope.tableParams.data[key].$edit = false;
+            },
+            function(){ // error function
+                $scope.cancel_edit($scope.edit_key);
+                alertService.add("error", "Error saving");
+            })
+
+    }
 });

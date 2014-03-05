@@ -5,10 +5,19 @@
 
         <table class="table table-striped table-condensed" ng-table="tableParams">
             <tbody>
-                <tr ng-repeat="transaction in $data">
+                <tr ng-repeat="(key, transaction) in $data">
                     <td data-title="'Date'" sortable="'date'">{{transaction.date}}</td>
                     <td data-title="'Description'" sortable="'desc'">{{transaction.desc}}</td>
                     <td data-title="'Amount'" sortable="'acc_amount'">{{transaction.acc_amount}}</td>
+                    <td data-title="'Hidden'" sortable="'hidden'">
+                        <span ng-if="!transaction.$edit">{{transaction.hidden}}</span>
+                        <div ng-if="transaction.$edit"><input type="checkbox" ng-model="transaction.hidden" /></div>
+                    </td>
+                    <td data-title="'Actions'">
+                        <a ng-if="!transaction.$edit" href="" class="btn btn-default btn-xs" ng-click="edit(key)">Edit</a>
+                        <a ng-if="transaction.$edit" href="" class="btn btn-primary btn-xs" ng-click="save(key)">Save</a>
+                        <a ng-if="transaction.$edit" href="" class="btn btn-primary btn-xs" ng-click="cancel_edit(key)">Cancel</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
