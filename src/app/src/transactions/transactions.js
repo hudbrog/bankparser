@@ -1,12 +1,15 @@
 bankRoller.factory('BankRollerAPI', function($resource){
    return {
        transactions: $resource('/transactions'),
-       grouped_transactions: $resource('/grouped_transactions')
+       grouped_transactions: $resource('/grouped_transactions'),
+       categories: $resource('/categories')
    }
 });
 
 bankRoller.controller('TransactionsCtrl', function( $scope, BankRollerAPI, ngTableParams, $location, $resource, alertService) {
     $scope.alerts = [];
+
+    BankRollerAPI.categories.get({}, function(data) { $scope.categories = data.items })
         // This is simple a demo for UI Boostrap.
 //        $scope.transactions = BankRollerAPI.transactions.query();
     $scope.tableParams = new ngTableParams(

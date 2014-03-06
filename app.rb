@@ -17,7 +17,7 @@ class BankRoller < Sinatra::Base
   end
 
   get '/transactions' do
-    params[:sort] = "{'date': 'asc'}" if params[:sort].nil?
+    params[:sort] = '{"date": "asc"}' if params[:sort].nil?
     @transactions = Transaction
       .all
       .order(Hash[JSON.parse(params[:sort]).map {|k,v| [k, v.to_sym]}])
@@ -44,6 +44,13 @@ class BankRoller < Sinatra::Base
 
     @transaction = Transaction.find(params[:id])
     @transaction.extend(TransactionRepresenter)
+
+    # hack, but so far I see no other way
+    if @transaction.category.nil? and !JSON.parse(raw)['category'].nil?
+      @transaction.category = Category.find(JSON.parse(raw)['category']['id'])
+      @transaction.save!
+    end
+
     @transaction.from_json(raw)
     @transaction.save!
     200
@@ -53,4 +60,20 @@ class BankRoller < Sinatra::Base
     @transaction = Transaction.create(params)
   end
 
+  get '/categories' do
+    @categories = Category
+      .all
+      .paginate(page: params[:page], per_page: params[:per_page])
+    @categories.extend(CategoriesRepresenter)
+    @categories.to_json
+  end
+
+  post '/categories' do
+    @categorie = Category.create(params)
+  end
+
+  get '/categories/:id' do
+    @category = Category.find(params[:id])
+    @category.extend(CategoryRepresenter).to_json
+  end
 end

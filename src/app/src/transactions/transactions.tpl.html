@@ -8,6 +8,12 @@
                 <td data-title="'Date'" sortable="'date'">{{transaction.date}}</td>
                 <td data-title="'Description'" sortable="'desc'">{{transaction.desc}}</td>
                 <td data-title="'Amount'" sortable="'acc_amount'">{{transaction.acc_amount}}</td>
+                <td data-title="'Category'" sortable="'transaction.category.name'">
+                    <span ng-if="!transaction.$edit">{{transaction.category.name}}</span>
+                    <div ng-if="transaction.$edit">
+                        <select ng-model="transaction.category" ng-options="c.name for c in categories"></select>
+                    </div>
+                </td>
                 <td data-title="'Hidden'" sortable="'hidden'">
                     <span ng-if="!transaction.$edit">{{transaction.hidden}}</span>
                     <div ng-if="transaction.$edit"><input type="checkbox" ng-model="transaction.hidden" /></div>

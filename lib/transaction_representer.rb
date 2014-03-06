@@ -1,4 +1,6 @@
 require './lib/pagination_representer'
+require './lib/category_representer'
+require './lib/category'
 
 module TransactionRepresenter
   include Roar::Representer::JSON::HAL
@@ -10,6 +12,7 @@ module TransactionRepresenter
   property :auth
   property :acc_amount
   property :hidden
+  property :category, :extend => CategoryRepresenter, class: Category, :parse_strategy => :sync
 
 
   link :self do
