@@ -24,6 +24,7 @@
     "angular-resource": "~1.2.14",
     "angular-route": "~1.2.14",
     "ng-table": "~0.3.1",
-    "angular-charts": "~0.0.1"
+    "angular-charts": "~0.0.1",
+    "angular-ui-router": "~0.2.9"
   }
 }
