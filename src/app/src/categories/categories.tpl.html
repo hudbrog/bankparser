@@ -18,7 +18,7 @@
                     <span ng-if="!hint.$edit">{{hint.regex}}</span>
                     <div ng-if="hint.$edit"><input type="text" ng-model="hint.regex"/></div>
                 </td>
-                <td data-title="'Actions'">
+                <td data-title="'Actions'" class="col-sm-2">
                     <a ng-if="!hint.$edit" href="" class="btn btn-default btn-xs" ng-click="edit(key)">Edit</a>
                     <a ng-if="hint.$edit"  href="" class="btn btn-primary btn-xs" ng-click="save(key)">Save</a>
                     <a ng-if="hint.$edit"  href="" class="btn btn-primary btn-xs" ng-click="cancel_edit(key)">Cancel</a>

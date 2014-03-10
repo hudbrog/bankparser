@@ -65,4 +65,14 @@ bankRoller.controller('TransactionsCtrl', function( $scope, BankRollerAPI, ngTab
             })
 
     }
+
+    $scope.save_hint = function(key){
+        $resource($scope.tableParams.data[key].category._links.hints.href).save({
+            category_id: $scope.tableParams.data[key].category.id,
+            regex: $scope.tableParams.data[key].desc
+        }, function(){},
+        function(){
+            alertService.add("error", "I was unable to save hint");
+        })
+    }
 });
