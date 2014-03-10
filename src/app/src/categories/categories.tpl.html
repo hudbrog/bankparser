@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-3">
+        <table class="table table-condensed" ng-table="categoryListTableParams">
+            <tbody>
+            <tr ng-repeat="(key, category) in $data"
+                ng-click="changeSelection(category);"
+                ng-class="{'active': category.$selected}">
+                <td data-title="'Categories'" sortable="'name'">{{category.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-9">
+        <table class="table table-striped table-condensed" ng-table="hintListTableParams">
+            <tbody>
+            <tr ng-repeat="(key, hint) in $data">
+                <td data-title="'Hints'" sortable="'regex'">
+                    <span ng-if="!hint.$edit">{{hint.regex}}</span>
+                    <div ng-if="hint.$edit"><input type="text" ng-model="hint.regex"/></div>
+                </td>
+                <td data-title="'Actions'">
+                    <a ng-if="!hint.$edit" href="" class="btn btn-default btn-xs" ng-click="edit(key)">Edit</a>
+                    <a ng-if="hint.$edit"  href="" class="btn btn-primary btn-xs" ng-click="save(key)">Save</a>
+                    <a ng-if="hint.$edit"  href="" class="btn btn-primary btn-xs" ng-click="cancel_edit(key)">Cancel</a>
+                </td>
+            </tr>
+            <tr ng-if="selectedCategory">
+                <td>
+                    <div ng-if="$create"><input type="text" ng-model="newHint.regex"/></div>
+                </td>
+                <td>
+                    <a ng-if="!$create" href="" class="btn btn-default btn-xs"  ng-click="create_new()">Create</a>
+                    <a ng-if="$create"  href="" class="btn btn-primary btn-xs" ng-click="save_new(key)">Save</a>
+                    <a ng-if="$create"  href="" class="btn btn-primary btn-xs" ng-click="cancel_new(key)">Cancel</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

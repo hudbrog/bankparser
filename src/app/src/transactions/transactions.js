@@ -2,16 +2,14 @@ bankRoller.factory('BankRollerAPI', function($resource){
    return {
        transactions: $resource('/transactions'),
        grouped_transactions: $resource('/grouped_transactions'),
-       categories: $resource('/categories')
+       categories: $resource('/categories'),
+       hints: $resource('/categories/:categoryId/hints')
    }
 });
 
 bankRoller.controller('TransactionsCtrl', function( $scope, BankRollerAPI, ngTableParams, $location, $resource, alertService) {
-    $scope.alerts = [];
-
     BankRollerAPI.categories.get({}, function(data) { $scope.categories = data.items })
-        // This is simple a demo for UI Boostrap.
-//        $scope.transactions = BankRollerAPI.transactions.query();
+
     $scope.tableParams = new ngTableParams(
         angular.extend({
             page: 1,
@@ -37,16 +35,6 @@ bankRoller.controller('TransactionsCtrl', function( $scope, BankRollerAPI, ngTab
             }
         }
     );
-
-    $scope.chartType = 'line';
-    $scope.chartConfig = {};
-    $scope.chartData = {series: ['Spent'], data: [{x: 0, y: [0], tooltip: 0}]};
-    BankRollerAPI.grouped_transactions.get({}, function(data){
-        $scope.chartData['data'] = [];
-        for(i=0; i< data.items.length; i++){
-            $scope.chartData['data'].push({x: data.items[i].date, y: [-1*data.items[i].sum], tooltip: data.items[i].sum});
-        }
-    });
 
     $scope.edit = function(key){
         if (typeof($scope.copy) !== 'undefined'){

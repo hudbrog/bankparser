@@ -46,6 +46,11 @@ bankRoller.config(function($stateProvider, $urlRouterProvider){
                 }
             }
         })
+        .state('categories', {
+            url: '/categories',
+            templateUrl: '../../app/src/categories/categories.tpl.html',
+            controller: 'CategoriesCtrl'
+        })
 })
 
 bankRoller.run(['$rootScope', '$state', '$stateParams', function ($rootScope,   $state, $stateParams) {

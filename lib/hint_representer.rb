@@ -1,29 +1,28 @@
 require './lib/pagination_representer'
+require './lib/category_representer'
 
-module CategoryRepresenter
+module HintRepresenter
   include Roar::Representer::JSON::HAL
   include Roar::Representer::Feature::Hypermedia
 
   property :id
-  property :name
+  property :regex
+  property :category_id
 
   link :self do
-    "/categories/#{id}"
-  end
-  link :hints do
-    "/categories/#{id}/hints"
+    "/categories/#{category_id}/hints/#{id}"
   end
 end
 
-module CategoriesRepresenter
+module HintsRepresenter
   include Roar::Representer::JSON::HAL
   include Roar::Representer::Feature::Hypermedia
   include PaginationRepresenter
 
-  collection :items, :extend => CategoryRepresenter
+  collection :items, :extend => HintRepresenter
 
   def page_url(*args)
-    '/categories'
+    '/hints'
   end
 end
 
