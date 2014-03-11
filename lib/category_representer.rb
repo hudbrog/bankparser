@@ -10,6 +10,7 @@ module CategoryRepresenter
   link :self do
     "/categories/#{id}"
   end
+  
   link :hints do
     "/categories/#{id}/hints"
   end

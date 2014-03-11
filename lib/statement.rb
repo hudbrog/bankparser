@@ -35,16 +35,19 @@ class Statement
              Transaction.where(auth: auth).first
            end
 
-      Transaction.create! do |t|
-        t.date         = date
-        t.desc         = desc
-        t.auth         = auth.empty? ? nil: auth
-        t.trans_amount = tamount
-        t.trans_curr   = trcurr
-        t.acc_amount   = aamount
-        t.acc_curr     = acccurr
-      end if tr.nil?
-
+      if tr.nil?
+        transaction = Transaction.create! do |t|
+          t.date         = date
+          t.desc         = desc
+          t.auth         = auth.empty? ? nil: auth
+          t.trans_amount = tamount
+          t.trans_curr   = trcurr
+          t.acc_amount   = aamount
+          t.acc_curr     = acccurr
+        end
+        transaction.categorize
+      end
+              
       puts "On #{date} #{desc} did a transaction #{auth}"
     end
   end

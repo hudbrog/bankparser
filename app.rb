@@ -109,4 +109,13 @@ class BankRoller < Sinatra::Base
     @hint = Hint.create(JSON.parse(raw))
     200
   end
+
+  post '/jobs' do
+    raw = request.env["rack.input"].read
+    par = JSON.parse(raw)
+    if par['job_type'] == 'reprocess_all'
+      Transaction.all.each { |tr| tr.categorize }
+    end
+    200
+  end
 end

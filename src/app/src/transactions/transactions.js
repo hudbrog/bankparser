@@ -3,7 +3,8 @@ bankRoller.factory('BankRollerAPI', function($resource){
        transactions: $resource('/transactions'),
        grouped_transactions: $resource('/grouped_transactions'),
        categories: $resource('/categories'),
-       hints: $resource('/categories/:categoryId/hints')
+       hints: $resource('/categories/:categoryId/hints'),
+       jobs: $resource('/jobs')
    }
 });
 

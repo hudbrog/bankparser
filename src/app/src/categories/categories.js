@@ -48,6 +48,13 @@ bankRoller.controller('CategoriesCtrl', function( $scope, BankRollerAPI, ngTable
         }
     );
 
+    $scope.reprocessAll = function(){
+        BankRollerAPI.jobs.save(
+            {job_type: 'reprocess_all'},
+            function() {alertService.add("info", "Successfully reprocessed")},
+            function() {alertService.add("error", "Error reprocessing")});
+    }
+
     $scope.create_new = function(){
         $scope.$create = true;
     }
